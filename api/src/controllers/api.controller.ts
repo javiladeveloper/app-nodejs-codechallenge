@@ -4,7 +4,7 @@ import { axiosRequest } from '../libs/utils/request'
 
 export async function getTransaction(req: Request, res: Response) {
   const { id } = req.params
-  const response = await axiosRequest('GET', 'https://pokeapi.co/api/v2/pokemon/ditto')
+  const response = await axiosRequest('GET', `https://pokeapi.co/api/v2/pokemon/${id}`)
   const result = response?.data
 
   res.send(stringify(result))

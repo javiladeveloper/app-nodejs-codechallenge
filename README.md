@@ -80,3 +80,17 @@ You can use Graphql;
 When you finish your challenge, after forking a repository, you **must** open a pull request to our repository. There are no limitations to the implementation, you can follow the programming paradigm, modularization, and style that you feel is the most appropriate solution.
 
 If you have any questions, please let us know.
+
+# Challenge
+
+## Diagram
+1. The flow begins with an HTTP request to the API, then through the Gateway it makes a request to the Microservice
+Transaction.
+2. Microservice
+Transaction saves the information and sends a message to Anti Fraud through a Broker.
+3. The Anti-Fraud Microservice validates the message and sends a new message with the status to the Transaction Microservice.
+4. Transaction Microservice receives the message and updates the record with the new status.
+5. When the Gateway makes a GET request, the first time the Transaction Microservice finds the record in the database and stores it
+cached with Redis, all requests to the same resource will be requested from Redis
+
+![My Images](images/architecture.PNG)

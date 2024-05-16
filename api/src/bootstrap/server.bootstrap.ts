@@ -1,6 +1,6 @@
 import http from 'http'
 import app from '../app'
-import { EnvConfig } from '../env-config'
+import { EnvConfig } from '../libs/utils/env-config'
 import { Bootstrap } from './bootstrap'
 
 export default class ServerBootstrap extends Bootstrap {

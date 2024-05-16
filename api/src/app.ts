@@ -1,4 +1,6 @@
 import express, { Application, Request, Response } from 'express'
+import expressAsyncHandler from 'express-async-handler'
+import { httpErrorHandler } from './middlewares/transaction.middlewares'
 import { createTransaction, getTransaction } from './controllers/api.controller'
 
 class App {
@@ -6,24 +8,30 @@ class App {
 
   constructor() {
     this.expressApp = express()
-    this.mountMiddlewares()
-    this.mountRoutes()
+    this.Middlewares()
+    this.Routes()
+    this.ErrorHandler()
+
   }
 
-  mountMiddlewares(): void {
+  Middlewares(): void {
     this.expressApp.use(express.json())
     this.expressApp.use(express.urlencoded({ extended: true }))
   }
 
-  mountRoutes(): void {
+  Routes(): void {
     this.expressApp.get('/status', (req: Request, res: Response) => {
       res.json({ time: new Date() })
     })
-    this.expressApp.get('/transaction/:id',getTransaction)
-    this.expressApp.post('/transaction', createTransaction)
+    this.expressApp.get('/transaction/:id',expressAsyncHandler(getTransaction))
+    this.expressApp.post('/transaction', expressAsyncHandler(createTransaction))
     this.expressApp.use('*', (req: Request, res: Response) => {
       res.status(404).json({ message: 'Invalid path' })
     })
+  }
+
+  ErrorHandler(){
+    this.expressApp.use(httpErrorHandler)
   }
 }
 

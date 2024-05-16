@@ -1,4 +1,5 @@
 import axios from 'axios'
+import createError from 'http-errors'
 
 export async function axiosRequest(method: string, url: string, data = undefined) {
   try {
@@ -14,6 +15,7 @@ export async function axiosRequest(method: string, url: string, data = undefined
 
     return response
   } catch (error: any) {
-    throw error
+    const { response } = error
+    throw createError(response.data.statusCode, response.data.message)
   }
 }
