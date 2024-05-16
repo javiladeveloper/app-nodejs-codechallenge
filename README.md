@@ -93,4 +93,4 @@ Transaction saves the information and sends a message to Anti Fraud through a Br
 5. When the Gateway makes a GET request, the first time the Transaction Microservice finds the record in the database and stores it
 cached with Redis, all requests to the same resource will be requested from Redis
 
-![My Images](images/architecture.PNG)
+![My Images](images/architecture.png)
