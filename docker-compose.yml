@@ -7,6 +7,9 @@ services:
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=transactions_db
+    volumes:
+      - postgres-vol:/data/db
   zookeeper:
     image: confluentinc/cp-zookeeper:5.5.3
     environment:
@@ -23,3 +26,15 @@ services:
       KAFKA_JMX_PORT: 9991
     ports:
       - 9092:9092
+  redis:
+    image: redis:6.2-alpine
+    restart: always
+    ports:
+      - 6379:6379
+    command: redis-server --loglevel warning --requirepass root
+    volumes:
+      - redis-vol:/data/db
+
+volumes:
+  postgres-vol:
+  redis-vol:
