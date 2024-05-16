@@ -21,6 +21,7 @@
   "homepage": "https://github.com/javiladeveloper/app-nodejs-codechallenge#readme",
   "devDependencies": {
     "@types/express": "^4.17.21",
+    "@types/json-stringify-safe": "^5.0.3",
     "@types/node": "^20.12.12",
     "eslint": "^8.57.0",
     "eslint-config-prettier": "^9.1.0",
@@ -32,7 +33,9 @@
     "typescript": "^5.4.5"
   },
   "dependencies": {
+    "axios": "^1.6.8",
     "express": "^4.19.2",
-    "express-async-handler": "^1.2.0"
+    "express-async-handler": "^1.2.0",
+    "json-stringify-safe": "^5.0.1"
   }
 }
