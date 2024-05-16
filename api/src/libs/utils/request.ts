@@ -1,8 +1,9 @@
-import axios from 'axios'
-import createError from 'http-errors'
+import axios from 'axios';
+import { logger } from './logger';
 
 export async function axiosRequest(method: string, url: string, data = undefined) {
   try {
+    logger.info(`Requesting ${method} ${url}`);
     const response = await axios({
       method,
       url,
@@ -11,11 +12,11 @@ export async function axiosRequest(method: string, url: string, data = undefined
         Accept: 'application/json',
         'Content-Type': 'application/json',
       },
-    })
+    });
 
-    return response
+    return response;
   } catch (error: any) {
-    const { response } = error
-    throw createError(response.data.statusCode, response.data.message)
+    logger.error(`Error in axios request: ${error.message}`);
+    throw error;
   }
 }

@@ -1,9 +1,13 @@
-import ServerBootstrap from './bootstrap/server.bootstrap'
-;(async () => {
+import ServerBootstrap from './bootstrap/server.bootstrap';
+import { logger } from './libs/utils/logger';
+
+(async () => {
   try {
-    const serverBootstrap = new ServerBootstrap()
-    await serverBootstrap.initialize()
+    const serverBootstrap = new ServerBootstrap();
+    await serverBootstrap.initialize();
+    logger.info('Server started successfully');
   } catch (error) {
-    process.exit(1)
+    logger.error('Failed to start server', error);
+    process.exit(1);
   }
-})()
+})();
