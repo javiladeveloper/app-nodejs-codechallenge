@@ -1,14 +1,14 @@
+import { logger } from './logger';
+
 export const EnvConfig = {
-  port: process.env.PORT || 3001,
+  port: process.env.PORT || 3002,
   environment: process.env.NODE_ENV || 'development',
-  logLevel: process.env.LOG_LVL || 'debug',
   whiteList: process.env.WHITE_LIST?.split(',') || ['*'],
   kafkaHost: process.env.KAFKA_HOST || 'localhost:9092',
   kafkaTopicAntifraud: process.env.KAFKA_TOPIC_ANTI_FRAUD || 'anti-fraud-topic',
   kafkaTopicTransac: process.env.KAFKA_TOPIC_TRANSAC || 'transac-topic',
   kafkaClientId: process.env.KAFKA_CLIENT_ID || 'transactions',
-  kafkaGroupId: process.env.KAFKA_GROUP_ID || 'transactions-group',
-  redisPort: Number(process.env.REDIS_PORT) || 6379,
-  redisHost: process.env.REDIS_HOST || 'localhost',
-  redisPassword: process.env.REDIS_PASSWORD || 'root',
+  kafkaGroupId: process.env.KAFKA_GROUP_ID || 'antifraud-group',
 };
+
+logger.info(`Kafka Config: ${JSON.stringify(EnvConfig)}`);

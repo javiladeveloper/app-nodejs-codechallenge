@@ -5,7 +5,7 @@ import { Transaction } from './transaction.model';
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const stringify = require('json-stringify-safe');
 
-@Controller('transactions')
+@Controller('transaction')
 export class TransactionController {
   constructor(private readonly transactionService: TransactionService) {}
 

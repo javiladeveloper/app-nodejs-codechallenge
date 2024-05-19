@@ -1,17 +1,18 @@
+import createError from 'http-errors';
 import { validate, ValidationError } from 'class-validator';
-import { BadRequestException } from '@nestjs/common';
 
 export class BaseDto {
   async isValid(): Promise<boolean> {
     const errors = await validate(this);
+    const badRequest = new createError.BadRequest();
 
     if (errors.length > 0) {
-      throw new BadRequestException(
-        errors.map((e: ValidationError) => ({
+      throw createError(badRequest.statusCode, badRequest.name, {
+        errors: errors.map((e: ValidationError) => ({
           property: e.property,
           constraints: this.getConstraints(e),
         })),
-      );
+      });
     }
 
     return true;
