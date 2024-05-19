@@ -10,19 +10,25 @@ export class BrokerBootstrap implements Bootstrap, OnModuleInit {
   static producer: Producer;
   static consumer: Consumer;
 
+  private consumerInitialized: Promise<boolean | Error>;
+
   constructor(
     @Inject(BrokerInfrastructure)
     private readonly brokerInfrastructure: BrokerInfrastructure,
-  ) {}
+  ) {
+    this.consumerInitialized = this.initialize();
+  }
 
   async onModuleInit() {
-    const initialized = await this.initialize();
-    if (initialized) {
+    const initialized = await this.consumerInitialized;
+    if (initialized === true) {
       await this.brokerInfrastructure.receive();
+    } else {
+      logger.error('Failed to initialize Kafka consumer');
     }
   }
 
-  async initialize(): Promise<boolean> {
+  async initialize(): Promise<boolean | Error> {
     try {
       const { kafkaHost, kafkaClientId, kafkaGroupId } = EnvConfig;
       logger.info(
@@ -46,7 +52,7 @@ export class BrokerBootstrap implements Bootstrap, OnModuleInit {
       return true;
     } catch (error) {
       logger.error('Broker failed to connect', error);
-      return false;
+      return error;
     }
   }
 }
