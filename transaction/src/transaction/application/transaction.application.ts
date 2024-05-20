@@ -4,6 +4,7 @@ import { BrokerRepository } from '../domain/repositories/broker.repository';
 import { RedisRepository } from '../domain/repositories/redis.repository';
 import { TransactionRepository } from '../domain/repositories/transaction.repository';
 import { CreateTransactionRequest } from '../infrastructure/interface/dtos/request/create-transaction.request';
+import { logger } from '../../core/utils/logger';
 
 export class TransactionApplication {
   constructor(
@@ -36,12 +37,16 @@ export class TransactionApplication {
       await this.redisRepository.get(id)
     );
     if (cachedData) {
+      logger.debug('[Redis Data]', JSON.stringify(cachedData));
       return cachedData;
     }
 
     const result = await this.transactionRepository.find(id);
-    await this.redisRepository.set(id, new TransactionInfoEntity(result));
-
+    const setRedis = await this.redisRepository.set(
+      id,
+      new TransactionInfoEntity(result),
+    );
+    logger.debug(setRedis);
     return new TransactionInfoEntity(result);
   }
 

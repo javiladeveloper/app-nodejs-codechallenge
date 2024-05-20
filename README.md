@@ -85,15 +85,85 @@ If you have any questions, please let us know.
 
 ## Diagram
 
-1. The flow begins with an HTTP request to the API, then through the Gateway it makes a request to the Microservice
-   Transaction.
-2. Microservice
-   Transaction saves the information and sends a message to Anti Fraud through a Broker.
+1. The flow begins when the client makes an HTTP request to an API that exposes some services, then makes a request to Transaction Microservice.
+2. Transaction Microservice saves the data and sends a message to the Anti Fraud Microservice through Event Broker.
 3. The Anti-Fraud Microservice validates the message and sends a new message with the status to the Transaction Microservice.
 4. Transaction Microservice receives the message and updates the record with the new status.
-5. When the Gateway makes a GET request, the first time the Transaction Microservice finds the record in the database and stores it
-   cached with Redis, all requests to the same resource will be requested from Redis
+5. When the Api makes a GET request, the first time the Transaction Microservice finds the record in the database it returns it from the DB but just at that moment a copy is stored
+   cached with Redis, all requests to the same resource will be requested from Redis, so as not to saturate the DB
 
 ![My Images](images/architecture.png)
 
-in terminal Powershell excecute this command
+## API REQUEST
+
+```
+POST -> http://localhost:3000/transaction/
+        body {
+          "accountExternalIdCredit": "6021a743-d77c-498e-beda-d834e89106ec",
+          "accountExternalIdDebit": "9fded260-d75a-4ef2-a735-bfa60fab7e30",
+          "tranferTypeId": 1,
+          "value": 1200
+        }
+
+GET -> http://localhost:3000/transaction/:id
+
+```
+
+## Setup project
+
+1. set env variables
+2. run scripts
+
+```
+> docker compose up -d --build
+> Option 1
+> npm run build
+> cd transaction
+> npm run generate
+> npm run migrate
+> npm run start:deev
+> cd ..
+> cd api
+> npm run start:dev
+> cd ..
+> cd anti-fraud
+> npm run dev
+> Option 2
+> ./start-all.ps1
+```
+
+## HAPPY PATH
+
+## Result transaction.value = 900
+
+1. started servers
+   ![My Image](images/init-api.PNG)
+   ![My Image](images/init-transaction.PNG)
+   ![My Image](images/init-anti-fraud.PNG)
+
+2. /transaction POST
+
+   ![My Image](images/post-transaction.PNG)
+   ![My Image](images/response-api.PNG)
+   ![My Image](images/response-transaction.PNG)
+   ![My Image](images/response-anti-fraud.PNG)
+   ![My Image](images/db-result.PNG)
+
+3. /transaction GET
+
+![My Image](images/get-transaction.PNG)
+![My Image](images/response-redis.PNG)
+
+## Result transaction.value = 10001
+
+1. /transaction POST
+
+   ![My Image](images/post-transaction2.PNG)
+   ![My Image](images/response-api2.PNG)
+   ![My Image](images/response-transaction2.PNG)
+   ![My Image](images/response-anti-fraud2.PNG)
+   ![My Image](images/db-result2.PNG)
+
+2. /transaction GET
+
+![My Image](images/get-transaction2.PNG)
