@@ -13,18 +13,14 @@ export class RedisService {
       password: EnvConfig.redisPassword,
     });
     RedisService.redisClient.on('error', (err) =>
-      console.log('Redis Client Error', err),
+      logger.error('Redis Client Error', err),
     );
     await RedisService.redisClient.connect();
   }
   static async set(key: string, value: unknown): Promise<void> {
     try {
       RedisService.start();
-      const res = await RedisService.redisClient.set(
-        key,
-        JSON.stringify(value),
-      );
-      console.log('[redisSet]', res);
+      await RedisService.redisClient.set(key, JSON.stringify(value));
       await RedisService.redisClient.disconnect();
     } catch (error) {
       logger.error(error);
@@ -34,9 +30,7 @@ export class RedisService {
   static async get(key: string): Promise<unknown | null> {
     try {
       RedisService.start();
-      // await RedisService.redisClient.connect()
       const value = await RedisService.redisClient.get(key);
-      console.log('[redisGet]', value);
 
       await RedisService.redisClient.disconnect();
 

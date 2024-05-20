@@ -12,7 +12,6 @@ import { logger } from '../../../core/utils/logger';
 export class TransactionService {
   static async create(data: TransactionEntity): Promise<Transaction> {
     try {
-      console.log(prisma.transaction);
       const result = await prisma.transaction.create({
         data: {
           ...data,

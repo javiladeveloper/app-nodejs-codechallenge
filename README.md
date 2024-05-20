@@ -1,6 +1,6 @@
 # Yape Code Challenge :rocket:
 
-Our code challenge will let you marvel us with your Jedi coding skills :smile:. 
+Our code challenge will let you marvel us with your Jedi coding skills :smile:.
 
 Don't forget that the proper way to submit your work is to fork the repo and create a PR :wink: ... have fun !!
 
@@ -84,13 +84,16 @@ If you have any questions, please let us know.
 # Challenge
 
 ## Diagram
+
 1. The flow begins with an HTTP request to the API, then through the Gateway it makes a request to the Microservice
-Transaction.
+   Transaction.
 2. Microservice
-Transaction saves the information and sends a message to Anti Fraud through a Broker.
+   Transaction saves the information and sends a message to Anti Fraud through a Broker.
 3. The Anti-Fraud Microservice validates the message and sends a new message with the status to the Transaction Microservice.
 4. Transaction Microservice receives the message and updates the record with the new status.
 5. When the Gateway makes a GET request, the first time the Transaction Microservice finds the record in the database and stores it
-cached with Redis, all requests to the same resource will be requested from Redis
+   cached with Redis, all requests to the same resource will be requested from Redis
 
 ![My Images](images/architecture.png)
+
+in terminal Powershell excecute this command
