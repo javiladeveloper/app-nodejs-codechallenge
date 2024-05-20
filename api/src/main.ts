@@ -15,7 +15,6 @@ async function bootstrap() {
   // Habilitar la validación global con mensajes de error específicos
   app.useGlobalPipes(new ValidationPipe({
     exceptionFactory: (errors: ValidationError[]) => {
-      console.log(errors)
       const detailedErrors = errors.map(error => {
         return {
           property: error.property,

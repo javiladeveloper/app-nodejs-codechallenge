@@ -167,3 +167,10 @@ GET -> http://localhost:3000/transaction/:id
 ## ERRORS
 
 ## NO DATA ON TRANSACTION POST
+1. Not respecting the interface model
+![My Images](images/error-response-transaction1.png)
+
+2. request empty
+![My Images](images/error-response-transaction2.png)
+
+
