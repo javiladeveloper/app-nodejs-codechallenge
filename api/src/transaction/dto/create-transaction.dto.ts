@@ -11,7 +11,7 @@ export class CreateTransactionDto {
 
   @IsNumber()
   @IsNotEmpty()
-  transferTypeId: number;
+  tranferTypeId: number;
 
   @IsNumber()
   @IsNotEmpty()

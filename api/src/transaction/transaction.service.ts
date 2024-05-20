@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { RequestService } from '../core/utils/request.service';
 import { CreateTransactionDto } from './dto/create-transaction.dto';
-import { Transaction } from './transaction.model';
+import { Transaction } from './model/transaction.model';
 import { Logger } from '../core/utils/logger';
 import { EnvConfig } from '../core/utils/env-config';
 
@@ -13,7 +13,7 @@ export class TransactionService {
     private requestService: RequestService,
     private logger: Logger,
   ) {}
-
+ 
   async createTransaction(
     createTransactionDto: CreateTransactionDto,
   ): Promise<any> {

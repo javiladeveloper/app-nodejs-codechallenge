@@ -1,36 +1,23 @@
-import {
-  ExceptionFilter,
-  Catch,
-  ArgumentsHost,
-  HttpException,
-  HttpStatus,
-} from '@nestjs/common';
+import { ExceptionFilter, Catch, ArgumentsHost, HttpException } from '@nestjs/common';
 import { Request, Response } from 'express';
-import { plainToClass } from 'class-transformer';
-import { HttpErrorDto } from '../dtos/http-error.exception.dto';
-import stringify from 'json-stringify-safe';
+import * as stringify from 'json-stringify-safe';
 
 @Catch()
 export class HttpErrorFilter implements ExceptionFilter {
-  catch(exception: unknown, host: ArgumentsHost) {
+  catch(exception: HttpException, host: ArgumentsHost) {
     const ctx = host.switchToHttp();
-    const response = ctx.getResponse<Response>();
     const request = ctx.getRequest<Request>();
+    const response = ctx.getResponse<Response>();
+    const status = exception.getStatus ? exception.getStatus() : 500;
 
-    const status =
-      exception instanceof HttpException
-        ? exception.getStatus()
-        : HttpStatus.INTERNAL_SERVER_ERROR;
-
-    const errorResponse = plainToClass(HttpErrorDto, {
-      statusCode: status,
+    const errorResponse = {
+      code: status,
       timestamp: new Date().toISOString(),
       path: request.url,
-      message:
-        exception instanceof HttpException
-          ? exception.message
-          : 'Internal server error',
-    });
+      method: request.method,
+      message: exception.message || null,
+      errors: (exception.getResponse() as any).errors || null, // Capturar errores de validación detallados
+    };
 
     response.status(status).json(JSON.parse(stringify(errorResponse)));
   }

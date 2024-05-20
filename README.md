@@ -163,3 +163,7 @@ GET -> http://localhost:3000/transaction/:id
 
 2. /transaction GET
 ![My Images](images/get-transaction2.png)
+
+## ERRORS
+
+## NO DATA ON TRANSACTION POST

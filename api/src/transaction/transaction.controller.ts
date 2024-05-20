@@ -1,7 +1,7 @@
 import { Controller, Get, Param, Post, Body } from '@nestjs/common';
 import { TransactionService } from './transaction.service';
 import { CreateTransactionDto } from './dto/create-transaction.dto';
-import { Transaction } from './transaction.model';
+import { Transaction } from './model/transaction.model';
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const stringify = require('json-stringify-safe');
 
