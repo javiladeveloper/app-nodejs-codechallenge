@@ -137,29 +137,29 @@ GET -> http://localhost:3000/transaction/:id
 ## Result transaction.value = 900
 
 1. started servers
-![My Images](images/init-api.PNG)
-![My Images](images/init-transaction.PNG)
-![My Images](images/init-anti-fraud.PNG)
+![My Images](images/init-api.png)
+![My Images](images/init-transaction.png)
+![My Images](images/init-anti-fraud.png)
 
 2. /transaction POST
-![My Images](images/post-transaction.PNG)
-![My Images](images/response-api.PNG)
-![My Images](images/response-transaction.PNG)
-![My Images](images/response-anti-fraud.PNG)
-![My Images](images/db-result.PNG)
+![My Images](images/post-transaction.png)
+![My Images](images/response-api.png)
+![My Images](images/response-transaction.png)
+![My Images](images/response-anti-fraud.png)
+![My Images](images/db-result.png)
 
 3. /transaction GET
-![My Images](images/get-transaction.PNG)
-![My Images](images/response-redis.PNG)
+![My Images](images/get-transaction.png)
+![My Images](images/response-redis.png)
 
 ## Result transaction.value = 10001
 
 1. /transaction POST
-![My Images](images/post-transaction2.PNG)
-![My Images](images/response-api2.PNG)
-![My Images](images/response-transaction2.PNG)
-![My Images](images/response-anti-fraud2.PNG)
-![My Images](images/db-result2.PNG)
+![My Images](images/post-transaction2.png)
+![My Images](images/response-api2.png)
+![My Images](images/response-transaction2.png)
+![My Images](images/response-anti-fraud2.png)
+![My Images](images/db-result2.png)
 
 2. /transaction GET
-![My Images](images/get-transaction2.PNG)
+![My Images](images/get-transaction2.png)
